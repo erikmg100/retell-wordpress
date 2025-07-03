@@ -1,0 +1,12 @@
+{
+  "name": "retell-wordpress-api",
+  "version": "1.0.0",
+  "description": "API endpoint for Retell AI web calls",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
