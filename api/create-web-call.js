@@ -4,7 +4,8 @@
 export default async function handler(req, res) {
   // Enable CORS for your WordPress domain
   const allowedOrigins = [
-    'https://yourdomain.com', // Replace with your WordPress domain
+    'https://meetgabbi.com',
+    'https://www.meetgabbi.com',
     'http://localhost:3000', // For local testing
   ];
   
