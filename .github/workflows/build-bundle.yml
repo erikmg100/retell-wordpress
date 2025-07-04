@@ -26,16 +26,21 @@ jobs:
       working-directory: ./bundle
       run: npm run build
     
-    - name: Upload bundle
-      uses: actions/upload-artifact@v3
+    - name: Upload bundle artifact
+      uses: actions/upload-artifact@v4
       with:
         name: retell-bundle
         path: bundle/dist/retell-bundle.js
+    
+    - name: Copy bundle to public
+      run: |
+        mkdir -p public
+        cp bundle/dist/retell-bundle.js public/
     
     - name: Commit bundle
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add bundle/dist/retell-bundle.js
+        git add -A
         git commit -m "Build retell bundle" || echo "No changes to commit"
         git push
