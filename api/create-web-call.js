@@ -1,14 +1,17 @@
-// api/create-web-call.js - FORCE REDEPLOY
-// This file goes in your Vercel project's api directory
-// Temporarily allowing all origins for testing
+// api/create-web-call.js - FORCE REDEPLOY v2
+// ALLOWING ALL ORIGINS FOR TESTING
 
 export default async function handler(req, res) {
-  // Allow all origins temporarily for testing
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  // Log the request for debugging
+  console.log('Request received from:', req.headers.origin);
   
-  // Handle preflight request
+  // Allow ALL origins - no restrictions for testing
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Max-Age', '86400');
+  
+  // Handle preflight
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
@@ -19,7 +22,6 @@ export default async function handler(req, res) {
   }
   
   try {
-    // Your Retell API key should be stored as an environment variable
     const RETELL_API_KEY = process.env.RETELL_API_KEY;
     
     if (!RETELL_API_KEY) {
@@ -53,7 +55,6 @@ export default async function handler(req, res) {
     
     const data = await response.json();
     
-    // Return the access token and call ID to the frontend
     res.status(200).json({
       access_token: data.access_token,
       call_id: data.call_id,
