@@ -1,19 +1,10 @@
 // api/create-web-call.js
 // This file goes in your Vercel project's api directory
+// Temporarily allowing all origins for testing
 
 export default async function handler(req, res) {
-  // Enable CORS for your WordPress domain
-  const allowedOrigins = [
-    'https://meetgabbi.com',
-    'https://www.meetgabbi.com',
-    'http://localhost:3000', // For local testing
-  ];
-  
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-  }
-  
+  // Allow all origins temporarily for testing
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   
