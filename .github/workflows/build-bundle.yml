@@ -1,0 +1,41 @@
+name: Build Retell Bundle
+
+on:
+  push:
+    paths:
+      - 'bundle/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    
+    - name: Install dependencies
+      working-directory: ./bundle
+      run: npm install
+    
+    - name: Build bundle
+      working-directory: ./bundle
+      run: npm run build
+    
+    - name: Upload bundle
+      uses: actions/upload-artifact@v3
+      with:
+        name: retell-bundle
+        path: bundle/dist/retell-bundle.js
+    
+    - name: Commit bundle
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add bundle/dist/retell-bundle.js
+        git commit -m "Build retell bundle" || echo "No changes to commit"
+        git push
