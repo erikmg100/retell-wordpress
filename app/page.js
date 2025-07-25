@@ -86,7 +86,8 @@ export default function Home() {
       
       setCallStatus('Creating call...');
       
-      const response = await fetch(`https://server-ten-delta-31.vercel.app/create-web-call?t=${Date.now()}`, {
+      // Updated to use your actual backend server URL
+      const response = await fetch(`https://retell-wordpress-backend.vercel.app/create-web-call?t=${Date.now()}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
